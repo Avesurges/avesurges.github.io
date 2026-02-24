@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://avesurges.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://avesurges.github.io</link></image><lastBuildDate>Tue, 24 Feb 2026 09:02:25 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>或与灯移位</title><link>https://avesurges.github.io/post/huo-yu-deng-yi-wei.html</link><description>##  |(或)  :  有一个是1就取1,否则取0 , &lt;&lt;(左移),右侧空余补0,左侧多余舍去,&gt;&gt;(右移),左侧空余补0(无符号数)或符号位(有符号数),右侧多余舍去
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://avesurges.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://avesurges.github.io</link></image><lastBuildDate>Tue, 24 Feb 2026 09:08:09 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>或与灯移位</title><link>https://avesurges.github.io/post/huo-yu-deng-yi-wei.html</link><description>##  |(或)  :  有一个是1就取1,否则取0 , &lt;&lt;(左移),右侧空余补0,左侧多余舍去,&gt;&gt;(右移),左侧空余补0(无符号数)或符号位(有符号数),右侧多余舍去
 # 灯移位v1：
 ```C
 #include &lt;reg51.h&gt;
@@ -67,5 +67,4 @@ int main()
 如果想让灯从右向左移,可以改为`leds=(leds&gt;&gt;1)|0x80;`(0x80即1000 0000)
 同样的原理,这里补的0(leds是unsigned char)会被0x80最高位的1置1,从而熄灭
 
-这种方法很巧妙,避免了使用`P2 &amp;= ~(1 &lt;&lt; previousIndex);`这样繁琐得显式关闭灯,体现位运算的妙处。</description><guid isPermaLink="true">https://avesurges.github.io/post/huo-yu-deng-yi-wei.html</guid><pubDate>Tue, 24 Feb 2026 08:59:56 +0000</pubDate></item><item><title>My first step</title><link>https://avesurges.github.io/post/My%20first%20step.html</link><description># 文本
-### 我不明白。</description><guid isPermaLink="true">https://avesurges.github.io/post/My%20first%20step.html</guid><pubDate>Sun, 22 Feb 2026 07:41:16 +0000</pubDate></item></channel></rss>
+这种方法很巧妙,避免了使用`P2 &amp;= ~(1 &lt;&lt; previousIndex);`这样繁琐得显式关闭灯,体现位运算的妙处。</description><guid isPermaLink="true">https://avesurges.github.io/post/huo-yu-deng-yi-wei.html</guid><pubDate>Tue, 24 Feb 2026 08:59:56 +0000</pubDate></item></channel></rss>
