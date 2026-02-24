@@ -1,3 +1,71 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://avesurges.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://avesurges.github.io</link></image><lastBuildDate>Sun, 22 Feb 2026 07:41:41 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>My first step</title><link>https://avesurges.github.io/post/My%20first%20step.html</link><description># 文本
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://avesurges.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://avesurges.github.io</link></image><lastBuildDate>Tue, 24 Feb 2026 09:02:25 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>或与灯移位</title><link>https://avesurges.github.io/post/huo-yu-deng-yi-wei.html</link><description>##  |(或)  :  有一个是1就取1,否则取0 , &lt;&lt;(左移),右侧空余补0,左侧多余舍去,&gt;&gt;(右移),左侧空余补0(无符号数)或符号位(有符号数),右侧多余舍去
+# 灯移位v1：
+```C
+#include &lt;reg51.h&gt;
+unsigned char leds,i;
+
+void delay(void)
+{
+	int i,j;
+	for(i=0;i&lt;1000;i++)
+		for(j=0;j&lt;10;j++);
+}
+
+
+
+int main()
+{
+	leds = 0xFE;
+	while(1)
+	{
+		leds = 0xFE;
+		for(i=0;i&lt;8;i++){
+			P2 = leds;
+			delay();
+			leds&lt;&lt;=1;
+			delay();
+		}
+	}
+}
+
+```
+这段代码运行效果有点瑕疵,灯移位后补的0会导致上一个灯继续亮着，循环往复类似一个进度条的形式，然而并不需要这样
+
+# 灯移位v2:
+```C
+#include &lt;reg51.h&gt;
+unsigned char leds,i;
+
+void delay(void)
+{
+	int i,j;
+	for(i=0;i&lt;1000;i++)
+		for(j=0;j&lt;10;j++);
+}
+
+
+
+int main()
+{
+	leds = 0xFE;
+	while(1)
+	{
+		leds = 0xFE;
+		for(i=0;i&lt;8;i++){
+			P2 = leds;
+			delay();
+			leds=(leds&lt;&lt;1)|0x01;
+			delay();
+		}
+	}
+}
+````
+这个版本是正确的,这里有个地方值得一究: (leds&lt;&lt;1)|0x01,为什么这样做就会把补的0变成1了呢
+
+0x01即0000 0001,因为0 | 1 = 1,并且新补的0一定在最低位,刚好可以与这个'1'进行运算,这会导致其置1,从而熄灭
+如果想让灯从右向左移,可以改为`leds=(leds&gt;&gt;1)|0x80;`(0x80即1000 0000)
+同样的原理,这里补的0(leds是unsigned char)会被0x80最高位的1置1,从而熄灭
+
+这种方法很巧妙,避免了使用`P2 &amp;= ~(1 &lt;&lt; previousIndex);`这样繁琐得显式关闭灯,体现位运算的妙处。</description><guid isPermaLink="true">https://avesurges.github.io/post/huo-yu-deng-yi-wei.html</guid><pubDate>Tue, 24 Feb 2026 08:59:56 +0000</pubDate></item><item><title>My first step</title><link>https://avesurges.github.io/post/My%20first%20step.html</link><description># 文本
 ### 我不明白。</description><guid isPermaLink="true">https://avesurges.github.io/post/My%20first%20step.html</guid><pubDate>Sun, 22 Feb 2026 07:41:16 +0000</pubDate></item></channel></rss>
